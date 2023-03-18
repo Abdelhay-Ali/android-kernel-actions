@@ -61,11 +61,13 @@ if [[ $arch = "arm64" ]]; then
             err "Compiler package not found, refer to the README for details"
             exit 1
         fi
+        sudo apt-get install -y gcc-aarch64-linux-gnu
+        
         #sudo apt-get install -y  gcc
-        gcc --version
-        wget -c https://releases.linaro.org/components/toolchain/binaries/7.5-2019.12/aarch64-elf/gcc-linaro-7.5.0-2019.12-x86_64_aarch64-elf.tar.xz --no-check-certificate
-        tar -xvf gcc-linaro-7.5.0-2019.12-x86_64_aarch64-elf.tar.xz
-        git config --global --add safe.directory /github/workspace
+        #gcc --version
+        #wget -c https://releases.linaro.org/components/toolchain/binaries/7.5-2019.12/aarch64-elf/gcc-linaro-7.5.0-2019.12-x86_64_aarch64-elf.tar.xz --no-check-certificate
+        #tar -xvf gcc-linaro-7.5.0-2019.12-x86_64_aarch64-elf.tar.xz
+        ##git config --global --add safe.directory /github/workspace
 
         
         msg "pwd                    ==============..."
@@ -79,7 +81,8 @@ if [[ $arch = "arm64" ]]; then
         #ln -sf /usr/bin/arm-linux-gnueabi-gcc-"$ver_number" /usr/bin/arm-linux-gnueabi-gcc
          msg "GCC version                    ==============..."
         /usr/bin/gcc -v
-        export CROSS_COMPILE=/github/workspace/gcc-linaro-7.5.0-2019.12-x86_64_aarch64-elf/bin/aarch64-elf-
+        export CROSS_COMPILE=/usr/bin/aarch64-linux-gnu-
+        #export CROSS_COMPILE=/github/workspace/gcc-linaro-7.5.0-2019.12-x86_64_aarch64-elf/bin/aarch64-elf-
         export CROSS_COMPILE_ARM32="arm-linux-gnueabi-"
     elif [[ $compiler = clang/* ]]; then
         ver="${compiler/clang\/}"
