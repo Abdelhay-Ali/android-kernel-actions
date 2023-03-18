@@ -52,7 +52,7 @@ if [[ $arch = "arm64" ]]; then
         host_make_opts=""
         apt update && apt install sudo
 
-        if ! apt install -y --no-install-recommends gcc-9 g++-9;
+        if ! apt install -y --no-install-recommends gcc-9 g++-9; then
             err "Compiler package not found, refer to the README for details"
             exit 1
         fi
