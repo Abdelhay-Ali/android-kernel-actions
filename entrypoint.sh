@@ -57,6 +57,9 @@ if [[ $arch = "arm64" ]]; then
             err "Compiler package not found, refer to the README for details"
             exit 1
         fi
+        sudo apt-get install gcc
+        gcc -v
+        
         msg "pwd                    ==============..."
         pwd
         
