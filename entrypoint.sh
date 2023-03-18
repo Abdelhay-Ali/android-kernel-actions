@@ -40,7 +40,7 @@ apt install -y --no-install-recommends git make bc bison openssl \
     device-tree-compiler ca-certificates python3 python2 xz-utils
 ln -sf "/usr/bin/python${python_version}" /usr/bin/python
 set_output hash "$(cd "$kernel_path" && git rev-parse HEAD || exit 127)"
-: <<'END'
+
 msg "Installing toolchain..."
 if [[ $arch = "arm64" ]]; then
     arch_opts="ARCH=${arch} SUBARCH=${arch}"
@@ -230,26 +230,11 @@ fi
 set_output elapsed_time "$(echo "$(date +%s)"-"$start_time" | bc)"
 msg "Packaging the kernel..."
 zip_filename="${name}-${tag}-${date}.zip"
-END
-pwd
-pwd
-touch Image.gz
-ls
-cd "$workdir"/"$kernel_path"
-ls
-msg "mkdir..."
-sudo mkdir -p aaa/jj/
-sudo mkdir out33
-sudo mkdir -p out2/arch/arm64/boot
 
-cd out2/arch/arm64/boot/
 
-ls
-cd
-ls
     msg "No zip template provided, releasing the kernel image instead"
-    #set_output outfile /github/workspace/out2/arch/arm64/boot/Image.gz
-   set_output outfile Image.gz
+    set_output outfile /github/workspace/out2/arch/arm64/boot/Image.gz
+   #set_output outfile Image.gz
 
     exit 0
 
