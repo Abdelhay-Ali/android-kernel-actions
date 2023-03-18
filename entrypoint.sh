@@ -230,7 +230,8 @@ fi
 set_output elapsed_time "$(echo "$(date +%s)"-"$start_time" | bc)"
 msg "Packaging the kernel..."
 zip_filename="${name}-${tag}-${date}.zip"
-
+ls
+pwd
 
     msg "No zip template provided, releasing the kernel image instead"
     set_output outfile /github/workspace/out2/arch/arm64/boot/Image.gz
