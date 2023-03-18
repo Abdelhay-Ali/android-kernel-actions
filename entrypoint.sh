@@ -20,7 +20,7 @@ extract_tarball(){
     echo "Extracting $1 to $2"
     tar xf "$1" -C "$2"
 }
-: <<'END'
+
 workdir="$GITHUB_WORKSPACE"
 arch="$1"
 compiler="$2"
@@ -40,6 +40,7 @@ apt install -y --no-install-recommends git make bc bison openssl \
     device-tree-compiler ca-certificates python3 python2 xz-utils
 ln -sf "/usr/bin/python${python_version}" /usr/bin/python
 set_output hash "$(cd "$kernel_path" && git rev-parse HEAD || exit 127)"
+: <<'END'
 msg "Installing toolchain..."
 if [[ $arch = "arm64" ]]; then
     arch_opts="ARCH=${arch} SUBARCH=${arch}"
@@ -241,6 +242,8 @@ ls
 cd
 ls
     msg "No zip template provided, releasing the kernel image instead"
-    set_output outfile /github/workspace/out2/arch/arm64/boot/Image.gz
+    #set_output outfile /github/workspace/out2/arch/arm64/boot/Image.gz
+   set_output outfile Image.gz
+
     exit 0
 
