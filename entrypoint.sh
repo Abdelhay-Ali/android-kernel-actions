@@ -35,6 +35,7 @@ python_version="${PYTHON_VERSION:-3}"
 msg "Updating container..."
 apt update && apt upgrade -y
 msg "Installing essential packages..."
+apt update && apt install sudo
 apt install -y --no-install-recommends git make bc bison openssl \
     curl zip kmod cpio flex libelf-dev libssl-dev libtfm-dev wget \
     device-tree-compiler ca-certificates python3 python2 xz-utils
