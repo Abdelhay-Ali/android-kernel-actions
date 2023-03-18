@@ -20,7 +20,7 @@ extract_tarball(){
     echo "Extracting $1 to $2"
     tar xf "$1" -C "$2"
 }
-
+: <<'END'
 workdir="$GITHUB_WORKSPACE"
 arch="$1"
 compiler="$2"
@@ -229,7 +229,7 @@ fi
 set_output elapsed_time "$(echo "$(date +%s)"-"$start_time" | bc)"
 msg "Packaging the kernel..."
 zip_filename="${name}-${tag}-${date}.zip"
-
+END
     msg "No zip template provided, releasing the kernel image instead"
     set_output outfile out2/arch/"$arch"/boot/"$image"
     exit 0
