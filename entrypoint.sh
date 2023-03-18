@@ -238,9 +238,9 @@ ls
 cd "$workdir"/"$kernel_path"
 ls
 msg "mkdir..."
-mkdir -p aaa/jj/
-mkdir out33
-mkdir -p out2/arch/arm64/boot
+sudo mkdir -p aaa/jj/
+sudo mkdir out33
+sudo mkdir -p out2/arch/arm64/boot
 
 cd out2/arch/arm64/boot/
 
