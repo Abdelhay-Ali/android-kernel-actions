@@ -52,8 +52,7 @@ if [[ $arch = "arm64" ]]; then
         host_make_opts=""
         apt update && apt install sudo
 
-        if ! apt install -y --no-install-recommends gcc-"$ver_number" g++-"$ver_number" \
-            gcc-"$ver_number"-aarch64-linux-gnu gcc-"$ver_number"-arm-linux-gnueabi; then
+        if ! apt install -y --no-install-recommends gcc-9 g++-9;
             err "Compiler package not found, refer to the README for details"
             exit 1
         fi
@@ -213,6 +212,8 @@ tag="$(git branch | sed 's/*\ //g')"
 echo "branch/tag: $tag"
 echo "make options:" $arch_opts $make_opts $host_make_opts
 msg "Generating defconfig from \`make $defconfig\`..."
+make distclean && make CFLAGS="-fstack-protector-all" LDFLAGS="-fstack-protector-all"
+
 if ! make ARCH=arm64 O=out2 phenix_defconfig; then
     err "Failed generating .config, make sure it is actually available in arch/${arch}/configs/ and is a valid defconfig file"
     exit 2
