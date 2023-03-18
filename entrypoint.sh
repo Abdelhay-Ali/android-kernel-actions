@@ -72,10 +72,10 @@ if [[ $arch = "arm64" ]]; then
         
         msg "ls                    ==============..."
         ls
-        ln -sf /usr/bin/gcc-"$ver_number" /usr/bin/gcc
+       ln -sf /usr/bin/gcc-"$ver_number" /usr/bin/gcc
         ln -sf /usr/bin/g++-"$ver_number" /usr/bin/g++
-        ln -sf /usr/bin/aarch64-linux-gnu-gcc-"$ver_number" /usr/bin/aarch64-linux-gnu-gcc
-        ln -sf /usr/bin/arm-linux-gnueabi-gcc-"$ver_number" /usr/bin/arm-linux-gnueabi-gcc
+        #ln -sf /usr/bin/aarch64-linux-gnu-gcc-"$ver_number" /usr/bin/aarch64-linux-gnu-gcc
+        #ln -sf /usr/bin/arm-linux-gnueabi-gcc-"$ver_number" /usr/bin/arm-linux-gnueabi-gcc
 
         export CROSS_COMPILE="/github/workspace/gcc-linaro-7.5.0-2019.12-x86_64_aarch64-elf/bin/aarch64-elf-"
         export CROSS_COMPILE_ARM32="arm-linux-gnueabi-"
