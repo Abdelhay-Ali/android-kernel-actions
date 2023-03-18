@@ -239,6 +239,6 @@ if [[ -e "$workdir"/"$zipper_path" ]]; then
     exit 0
 else
     msg "No zip template provided, releasing the kernel image instead"
-    set_output outfile out/arch/"$arch"/boot/"$image"
+    set_output outfile out2/arch/"$arch"/boot/"$image"
     exit 0
 fi
