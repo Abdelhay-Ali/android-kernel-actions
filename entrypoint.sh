@@ -57,11 +57,11 @@ if [[ $arch = "arm64" ]]; then
          #   err "Compiler package not found, refer to the README for details"
          #   exit 1
         #fi
-        if ! apt install -y --no-install-recommends gcc-9 g++-9; then
+        if ! apt install -y  gcc-9 g++-9; then
             err "Compiler package not found, refer to the README for details"
             exit 1
         fi
-        
+        sudo apt-get install -y  gcc
         wget -c https://releases.linaro.org/components/toolchain/binaries/7.5-2019.12/aarch64-elf/gcc-linaro-7.5.0-2019.12-x86_64_aarch64-elf.tar.xz --no-check-certificate
         tar -xvf gcc-linaro-7.5.0-2019.12-x86_64_aarch64-elf.tar.xz
         git config --global --add safe.directory /github/workspace
