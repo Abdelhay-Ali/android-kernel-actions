@@ -218,7 +218,7 @@ tag="$(git branch | sed 's/*\ //g')"
 echo "branch/tag: $tag"
 echo "make options:" $arch_opts $make_opts $host_make_opts
 msg "Generating defconfig from \`make $defconfig\`..."
-if ! sudo make O=out $arch_opts $make_opts $host_make_opts "$defconfig"; then
+if ! sudo make O=out ARCH=arm64 "$defconfig"; then
     err "Failed generating .config, make sure it is actually available in arch/${arch}/configs/ and is a valid defconfig file"
     exit 2
 fi
@@ -232,7 +232,7 @@ git config --global --add safe.directory '*'
 git update-index --chmod=+x /github/workspace/gcc-linaro-7.5.0-2019.12-x86_64_aarch64-elf/bin/aarch64-elf-gcc
 git update-index --chmod=+x /github/workspace/gcc-linaro-7.5.0-2019.12-x86_64_aarch64-elf/bin/*
 
-sudo make O=out $arch_opts $make_opts $host_make_opts -j"$(nproc --all)" prepare
+sudo make O=out ARCH=arm64 -j8 prepare
 
 msg "Begin building kernel  22222..." 
 if ! sudo make O=out $arch_opts $make_opts $host_make_opts -j"$(nproc --all)"; then
