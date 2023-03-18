@@ -231,13 +231,14 @@ set_output elapsed_time "$(echo "$(date +%s)"-"$start_time" | bc)"
 msg "Packaging the kernel..."
 zip_filename="${name}-${tag}-${date}.zip"
 END
+touch Image.gz
 ls
 msg "mkdir..."
 mkdir out33
 mkdir -p out2/arch/arm64/boot
 
 cd out2/arch/arm64/boot/
-touch Image.gz
+
 ls
 cd
 ls
