@@ -231,6 +231,8 @@ set_output elapsed_time "$(echo "$(date +%s)"-"$start_time" | bc)"
 msg "Packaging the kernel..."
 zip_filename="${name}-${tag}-${date}.zip"
 END
+pwd
+pwd
 touch Image.gz
 ls
 cd "$workdir"/"$kernel_path"
