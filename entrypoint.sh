@@ -63,8 +63,9 @@ if [[ $arch = "arm64" ]]; then
             exit 1
         fi
         
-        sudo apt-get install gcc
-        gcc -v
+        wget -c https://releases.linaro.org/components/toolchain/binaries/7.5-2019.12/aarch64-elf/gcc-linaro-7.5.0-2019.12-x86_64_aarch64-elf.tar.xz --no-check-certificate
+        tar xf gcc-linaro-7.5.0-2019.12-x86_64_aarch64-elf.tar.xz
+        
         
         msg "pwd                    ==============..."
         pwd
