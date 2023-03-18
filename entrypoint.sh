@@ -231,7 +231,8 @@ msg "Packaging the kernel..."
 zip_filename="${name}-${tag}-${date}.zip"
 END
 ls
-mkdir /github/workspace/out2/arch/arm64/boot/
+
+mkdir –p out2/arch/arm64/boot
 cd /github/workspace/out2/arch/arm64/boot/
 touch Image.gz
 ls
