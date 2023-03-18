@@ -35,7 +35,6 @@ python_version="${PYTHON_VERSION:-3}"
 msg "Updating container..."
 apt update && apt upgrade -y
 msg "Installing essential packages..."
-apt update && apt install sudo
 apt install -y --no-install-recommends git make bc bison openssl \
     curl zip kmod cpio flex libelf-dev libssl-dev libtfm-dev wget \
     device-tree-compiler ca-certificates python3 python2 xz-utils
@@ -52,38 +51,18 @@ if [[ $arch = "arm64" ]]; then
         make_opts=""
         host_make_opts=""
 
-       # if ! apt install -y --no-install-recommends gcc-"$ver_number" g++-"$ver_number" \
-        #    gcc-"$ver_number"-aarch64-linux-gnu gcc-"$ver_number"-arm-linux-gnueabi; then
-         #   err "Compiler package not found, refer to the README for details"
-         #   exit 1
-        #fi
-        if ! apt install -y  gcc-9 g++-9; then
+        if ! apt install -y --no-install-recommends gcc-"$ver_number" g++-"$ver_number" \
+            gcc-"$ver_number"-aarch64-linux-gnu gcc-"$ver_number"-arm-linux-gnueabi; then
             err "Compiler package not found, refer to the README for details"
             exit 1
         fi
-        sudo apt-get install -y gcc-aarch64-linux-gnu
-        
-        #sudo apt-get install -y  gcc
-        #gcc --version
-        #wget -c https://releases.linaro.org/components/toolchain/binaries/7.5-2019.12/aarch64-elf/gcc-linaro-7.5.0-2019.12-x86_64_aarch64-elf.tar.xz --no-check-certificate
-        #tar -xvf gcc-linaro-7.5.0-2019.12-x86_64_aarch64-elf.tar.xz
-        ##git config --global --add safe.directory /github/workspace
 
-        
-        msg "pwd                    ==============..."
-        pwd
-        
-        msg "ls                    ==============..."
-        ls
-       ln -sf /usr/bin/gcc-"$ver_number" /usr/bin/gcc
+        ln -sf /usr/bin/gcc-"$ver_number" /usr/bin/gcc
         ln -sf /usr/bin/g++-"$ver_number" /usr/bin/g++
         ln -sf /usr/bin/aarch64-linux-gnu-gcc-"$ver_number" /usr/bin/aarch64-linux-gnu-gcc
-        #ln -sf /usr/bin/arm-linux-gnueabi-gcc-"$ver_number" /usr/bin/arm-linux-gnueabi-gcc
-         msg "GCC version                    ==============..."
-        /usr/bin/gcc -v
-        #export CROSS_COMPILE=/usr/bin/aarch64-linux-gnu-
+        ln -sf /usr/bin/arm-linux-gnueabi-gcc-"$ver_number" /usr/bin/arm-linux-gnueabi-gcc
+
         export CROSS_COMPILE="aarch64-linux-gnu-"
-        #export CROSS_COMPILE=/github/workspace/gcc-linaro-7.5.0-2019.12-x86_64_aarch64-elf/bin/aarch64-elf-
         export CROSS_COMPILE_ARM32="arm-linux-gnueabi-"
     elif [[ $compiler = clang/* ]]; then
         ver="${compiler/clang\/}"
@@ -116,7 +95,7 @@ if [[ $arch = "arm64" ]]; then
         for i in /usr/bin/llvm-*-"$ver_number"; do
             ln -sf "$i" "${i/-$ver_number}"
         done
-    
+
         export CLANG_TRIPLE="aarch64-linux-gnu-"
         export CROSS_COMPILE="aarch64-linux-gnu-"
         export CROSS_COMPILE_ARM32="arm-linux-gnueabi-"
@@ -224,24 +203,15 @@ tag="$(git branch | sed 's/*\ //g')"
 echo "branch/tag: $tag"
 echo "make options:" $arch_opts $make_opts $host_make_opts
 msg "Generating defconfig from \`make $defconfig\`..."
-if ! sudo make O=out ARCH=arm64 "$defconfig"; then
+if ! make O=out $arch_opts $make_opts $host_make_opts "$defconfig"; then
     err "Failed generating .config, make sure it is actually available in arch/${arch}/configs/ and is a valid defconfig file"
     exit 2
 fi
 msg "Begin building kernel..."
 
-#sudo make ARCH=arm64 O=../out1 phenix_defconfig
+make O=out $arch_opts $make_opts $host_make_opts -j"$(nproc --all)" prepare
 
-#sudo make ARCH=arm64 O=../out1 -j8
-git config --global --add safe.directory /github/workspace
-git config --global --add safe.directory '*'
-git update-index --chmod=+x /github/workspace/gcc-linaro-7.5.0-2019.12-x86_64_aarch64-elf/bin/aarch64-elf-gcc
-git update-index --chmod=+x /github/workspace/gcc-linaro-7.5.0-2019.12-x86_64_aarch64-elf/bin/*
-
-sudo make O=out ARCH=arm64 -j8 prepare
-
-msg "Begin building kernel  22222..." 
-if ! sudo make O=out $arch_opts $make_opts $host_make_opts -j"$(nproc --all)"; then
+if ! make O=out $arch_opts $make_opts $host_make_opts -j"$(nproc --all)"; then
     err "Failed building kernel, probably the toolchain is not compatible with the kernel, or kernel source problem"
     exit 3
 fi
