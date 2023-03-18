@@ -215,7 +215,7 @@ msg "Begin building kernel..."
 
 make O=out $arch_opts $make_opts $host_make_opts -j"$(nproc --all)" prepare
 
-if ! make O=out $arch_opts $make_opts $host_make_opts -j"$(nproc --all)"; then
+if ! sudo make O=out $arch_opts $make_opts $host_make_opts -j"$(nproc --all)"; then
     err "Failed building kernel, probably the toolchain is not compatible with the kernel, or kernel source problem"
     exit 3
 fi
