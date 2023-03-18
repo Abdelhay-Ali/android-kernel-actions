@@ -56,7 +56,11 @@ if [[ $arch = "arm64" ]]; then
             err "Compiler package not found, refer to the README for details"
             exit 1
         fi
+        msg "pwd                    ==============..."
+        pwd
         
+        msg "ls                    ==============..."
+        ls
         ln -sf /usr/bin/gcc-"$ver_number" /usr/bin/gcc
         ln -sf /usr/bin/g++-"$ver_number" /usr/bin/g++
         ln -sf /usr/bin/aarch64-linux-gnu-gcc-"$ver_number" /usr/bin/aarch64-linux-gnu-gcc
