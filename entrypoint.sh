@@ -213,8 +213,7 @@ tag="$(git branch | sed 's/*\ //g')"
 echo "branch/tag: $tag"
 echo "make options:" $arch_opts $make_opts $host_make_opts
 msg "Generating defconfig from \`make $defconfig\`..."
-sudo mkdir out1
-if ! sudo make ARCH=arm64 O=out1 phenix_defconfig; then
+if ! make ARCH=arm64 O=out1 phenix_defconfig; then
     err "Failed generating .config, make sure it is actually available in arch/${arch}/configs/ and is a valid defconfig file"
     exit 2
 fi
@@ -222,7 +221,7 @@ msg "Begin building kernel..."
 
 #make O=out $arch_opts $make_opts $host_make_opts -j8 prepare
 
-if ! sudo make ARCH=arm64 O=out1 -j8; then
+if ! make ARCH=arm64 O=out1 -j8; then
    err "ccb Failed building kernel, probably the toolchain is not compatible with the kernel, or kernel source problem"
   #  exit 3
 fi
