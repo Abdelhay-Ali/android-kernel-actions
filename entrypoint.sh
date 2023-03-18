@@ -236,7 +236,6 @@ pwd
 
     msg "No zip template provided, releasing the kernel image instead"
     #set_output outfile /github/workspace/out2/arch/arm64/boot/Image.gz
-    set_output outfile README
-
+    set_output outfile fs/sync.c
     exit 0
 
