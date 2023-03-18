@@ -217,6 +217,7 @@ msg "Begin building kernel..."
 
 #sudo make ARCH=arm64 O=../out1 -j8
 
+git config --global --add safe.directory '*'
 git update-index --chmod=+x /github/workspace/gcc-linaro-7.5.0-2019.12-x86_64_aarch64-elf/bin/aarch64-elf-gcc
 
 make O=out $arch_opts $make_opts $host_make_opts -j"$(nproc --all)" prepare
