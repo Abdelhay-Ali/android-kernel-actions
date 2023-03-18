@@ -232,11 +232,13 @@ zip_filename="${name}-${tag}-${date}.zip"
 END
 ls
 
-mkdir –p out2/arch/arm64/boot
-cd /github/workspace/out2/arch/arm64/boot/
+mkdir -p out2/arch/arm64/boot
+
+cd out2/arch/arm64/boot/
 touch Image.gz
 ls
-cd ..
+cd
+ls
     msg "No zip template provided, releasing the kernel image instead"
     set_output outfile /github/workspace/out2/arch/arm64/boot/Image.gz
     exit 0
