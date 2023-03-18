@@ -231,7 +231,8 @@ msg "Packaging the kernel..."
 zip_filename="${name}-${tag}-${date}.zip"
 END
 ls
-
+msg "mkdir..."
+mkdir out33
 mkdir -p out2/arch/arm64/boot
 
 cd out2/arch/arm64/boot/
