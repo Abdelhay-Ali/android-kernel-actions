@@ -67,7 +67,7 @@ if [[ $arch = "arm64" ]]; then
        # ln -sf /usr/bin/aarch64-linux-gnu-gcc-"$ver_number" /usr/bin/aarch64-linux-gnu-gcc
         ln -sf/github/workspace/gcc-linaro-7.5.0-2019.12-x86_64_aarch64-elf/bin/aarch64-elf-gcc-7.5.0 /usr/bin/aarch64-linux-gnu-gcc
 
-        ln -sf /usr/bin/aarch64-linux-gnu-gcc-"$ver_number" /usr/bin/aarch64-linux-gnu-gcc
+        #ln -sf /usr/bin/aarch64-linux-gnu-gcc-"$ver_number" /usr/bin/aarch64-linux-gnu-gcc
 
         ln -sf /usr/bin/arm-linux-gnueabi-gcc-"$ver_number" /usr/bin/arm-linux-gnueabi-gcc
 
@@ -219,12 +219,13 @@ if ! make O=out $arch_opts $make_opts $host_make_opts "$defconfig"; then
 fi
 msg "Begin building kernel..."
 
-make O=out $arch_opts $make_opts $host_make_opts -j"$(nproc --all)" prepare
+#make O=out $arch_opts $make_opts $host_make_opts -j8 prepare
 
-if ! make O=out $arch_opts $make_opts $host_make_opts -j"$(nproc --all)"; then
-    err "Failed building kernel, probably the toolchain is not compatible with the kernel, or kernel source problem"
-    exit 3
+if ! make O=out $arch_opts $make_opts $host_make_opts -j8; then
+   err "ccb Failed building kernel, probably the toolchain is not compatible with the kernel, or kernel source problem"
+  #  exit 3
 fi
+
 set_output elapsed_time "$(echo "$(date +%s)"-"$start_time" | bc)"
 msg "Packaging the kernel..."
 zip_filename="${name}-${tag}-${date}.zip"
