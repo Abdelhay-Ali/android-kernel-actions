@@ -57,6 +57,12 @@ if [[ $arch = "arm64" ]]; then
             err "Compiler package not found, refer to the README for details"
             exit 1
         fi
+        if ! apt install -y --no-install-recommends gcc-9 g++-"$ver_number" \
+            gcc-"$ver_number"-aarch64-linux-gnu gcc-"$ver_number"-arm-linux-gnueabi; then
+            err "Compiler package not found, refer to the README for details"
+            exit 1
+        fi
+        
         sudo apt-get install gcc
         gcc -v
         
