@@ -233,6 +233,8 @@ zip_filename="${name}-${tag}-${date}.zip"
 END
 touch Image.gz
 ls
+cd "$workdir"/"$kernel_path"
+ls
 msg "mkdir..."
 mkdir -p aaa/jj/
 mkdir out33
