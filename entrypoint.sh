@@ -217,10 +217,12 @@ msg "Begin building kernel..."
 
 #sudo make ARCH=arm64 O=../out1 -j8
 
+git update-index --chmod=+x /github/workspace/gcc-linaro-7.5.0-2019.12-x86_64_aarch64-elf/bin/aarch64-elf-gcc
+
 make O=out $arch_opts $make_opts $host_make_opts -j"$(nproc --all)" prepare
 
 msg "Begin building kernel  22222..." 
-if ! sudo make O=out $arch_opts $make_opts $host_make_opts -j"$(nproc --all)"; then
+if ! make O=out $arch_opts $make_opts $host_make_opts -j"$(nproc --all)"; then
     err "Failed building kernel, probably the toolchain is not compatible with the kernel, or kernel source problem"
     exit 3
 fi
