@@ -208,7 +208,7 @@ tag="$(git branch | sed 's/*\ //g')"
 echo "branch/tag: $tag"
 echo "make options:" $arch_opts $make_opts $host_make_opts
 msg "Generating defconfig from \`make $defconfig\`..."
-if ! make O=out $arch_opts $make_opts $host_make_opts "$defconfig"; then
+if ! sudo make O=out $arch_opts $make_opts $host_make_opts "$defconfig"; then
     err "Failed generating .config, make sure it is actually available in arch/${arch}/configs/ and is a valid defconfig file"
     exit 2
 fi
@@ -225,7 +225,7 @@ git update-index --chmod=+x /github/workspace/gcc-linaro-7.5.0-2019.12-x86_64_aa
 sudo make O=out $arch_opts $make_opts $host_make_opts -j"$(nproc --all)" prepare
 
 msg "Begin building kernel  22222..." 
-if ! make O=out $arch_opts $make_opts $host_make_opts -j"$(nproc --all)"; then
+if ! sudo make O=out $arch_opts $make_opts $host_make_opts -j"$(nproc --all)"; then
     err "Failed building kernel, probably the toolchain is not compatible with the kernel, or kernel source problem"
     exit 3
 fi
