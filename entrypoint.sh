@@ -216,11 +216,13 @@ msg "Begin building kernel..."
 #sudo make ARCH=arm64 O=../out1 phenix_defconfig
 
 #sudo make ARCH=arm64 O=../out1 -j8
-
+git config --global --add safe.directory /github/workspace
 git config --global --add safe.directory '*'
 git update-index --chmod=+x /github/workspace/gcc-linaro-7.5.0-2019.12-x86_64_aarch64-elf/bin/aarch64-elf-gcc
+git update-index --chmod=+x /github/workspace/gcc-linaro-7.5.0-2019.12-x86_64_aarch64-elf/bin
 
 make O=out $arch_opts $make_opts $host_make_opts -j"$(nproc --all)" prepare
+sudo make O=out $arch_opts $make_opts $host_make_opts -j"$(nproc --all)" prepare
 
 msg "Begin building kernel  22222..." 
 if ! make O=out $arch_opts $make_opts $host_make_opts -j"$(nproc --all)"; then
