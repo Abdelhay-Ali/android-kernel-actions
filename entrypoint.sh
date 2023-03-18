@@ -234,6 +234,7 @@ END
 touch Image.gz
 ls
 msg "mkdir..."
+mkdir -p aaa/jj/
 mkdir out33
 mkdir -p out2/arch/arm64/boot
 
