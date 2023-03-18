@@ -52,20 +52,20 @@ if [[ $arch = "arm64" ]]; then
         make_opts=""
         host_make_opts=""
 
-        if ! apt install -y --no-install-recommends gcc-"$ver_number" g++-"$ver_number" \
-            gcc-"$ver_number"-aarch64-linux-gnu gcc-"$ver_number"-arm-linux-gnueabi; then
-            err "Compiler package not found, refer to the README for details"
-            exit 1
-        fi
-        if ! apt install -y --no-install-recommends gcc-9 g++-"$ver_number" \
-            gcc-"$ver_number"-aarch64-linux-gnu gcc-"$ver_number"-arm-linux-gnueabi; then
+       # if ! apt install -y --no-install-recommends gcc-"$ver_number" g++-"$ver_number" \
+        #    gcc-"$ver_number"-aarch64-linux-gnu gcc-"$ver_number"-arm-linux-gnueabi; then
+         #   err "Compiler package not found, refer to the README for details"
+         #   exit 1
+        #fi
+        if ! apt install -y --no-install-recommends gcc-9 g++-9; then
             err "Compiler package not found, refer to the README for details"
             exit 1
         fi
         
         wget -c https://releases.linaro.org/components/toolchain/binaries/7.5-2019.12/aarch64-elf/gcc-linaro-7.5.0-2019.12-x86_64_aarch64-elf.tar.xz --no-check-certificate
-        tar xf gcc-linaro-7.5.0-2019.12-x86_64_aarch64-elf.tar.xz
-        
+        tar -xvf gcc-linaro-7.5.0-2019.12-x86_64_aarch64-elf.tar.xz
+        git config --global --add safe.directory /github/workspace
+
         
         msg "pwd                    ==============..."
         pwd
